@@ -20,7 +20,6 @@ class PawFindsTests(unittest.TestCase):
         chrome_options.add_argument("--disable-dev-shm-usage")
         chrome_options.add_argument("--disable-gpu")
         chrome_options.add_argument("--window-size=1920,1080")
-        chrome_options.add_argument("--user-agent=Mozilla/5.0 PawFinds-Selenium-Tests")
         
         cls.base_url = os.environ.get('APP_URL', 'http://13.60.49.1:4000')
         
