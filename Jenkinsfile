@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     environment {
-        APP_URL = 'https://721888ac1dfe2d157ccf48d135dc1761.serveousercontent.com'
+        APP_URL = 'http://13.60.49.1:4000'
     }
     
     stages {
