@@ -6,7 +6,7 @@ pipeline {
     }
     
     stages {
-        stage('Clone Repository') {
+        stage('Clone Test Repository') {
             steps {
                 echo 'Cloning test repository...'
                 git branch: 'main', url: 'https://github.com/laybashahidd/pawfin-tests.git'
@@ -45,17 +45,32 @@ pipeline {
         }
         success {
             emailext (
-                subject: "SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                body: "Build passed! Check: ${env.BUILD_URL}",
-                recipientProviders: [[$class: 'CulpritsRecipientProvider'], [$class: 'RequesterRecipientProvider']],
+                subject: "SUCCESS: PawFinds Tests - Build #${env.BUILD_NUMBER}",
+                body: """
+                    Build SUCCESS!
+                    
+                    Job: ${env.JOB_NAME}
+                    Build: ${env.BUILD_NUMBER}
+                    URL: ${env.BUILD_URL}
+                    
+                    All Selenium tests passed!
+                    Application: ${APP_URL}
+                """,
                 to: '${GIT_AUTHOR_EMAIL}'
             )
         }
         failure {
             emailext (
-                subject: "FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                body: "Build failed! Check: ${env.BUILD_URL}",
-                recipientProviders: [[$class: 'CulpritsRecipientProvider'], [$class: 'RequesterRecipientProvider']],
+                subject: "FAILED: PawFinds Tests - Build #${env.BUILD_NUMBER}",
+                body: """
+                    Build FAILED!
+                    
+                    Job: ${env.JOB_NAME}
+                    Build: ${env.BUILD_NUMBER}
+                    URL: ${env.BUILD_URL}
+                    
+                    Please check console output.
+                """,
                 to: '${GIT_AUTHOR_EMAIL}'
             )
         }
